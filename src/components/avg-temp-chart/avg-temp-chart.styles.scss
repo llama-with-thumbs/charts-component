@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+      overflow: hidden;
+    font-family: 'Lato', sans-serif;
+  }
+  
+  pre {
+      font-size: 6em;
+  }
+  .tick line {
+      stroke: #f3f2f1;
+  }
+  .tick text {
+      fill: #777777;
+  }
+  .marks circle {
+      fill: dodgerblue;
+  }
+  .marks path {
+      stroke: dodgerblue;
+    stroke-width: 1;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .axis-label {
+      font-size: 1.5em;
+    fill: #666666;
+  }
