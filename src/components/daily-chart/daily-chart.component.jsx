@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import { csv, scaleLinear, scaleTime, timeFormat, extent } from 'd3';
-import { useData } from './useData';
+
 import { AxisBottom } from './AxisBottom';
 import { AxisLeft } from './AxisLeft';
 import { Marks } from './Marks';
+
+import './daily-chart.styles.scss';
 
 const width = 960;
 const height = 500;
@@ -17,21 +18,15 @@ const margin = {
 const xAxisLabelOffset = 45;
 const yAxisLabelOffset = 45;
 
-const xValue = (d) => d.date;
+const xValue = (d) => d.Date;
 const xAxisLabel = 'Time';
-const yValue = (d) => d.air_temperature_avg;
-const yAxisLabel = 'Average air temperature (°C)';
+const yValue = (d) => d.Cases;
+const yAxisLabel = 'Cases';
 
 const xAxisTickFormat = timeFormat("%m-'%y");
 
-const App = () => {
-  const data = useData();
-
-  if (!data) {
-    return <pre>Loading data...</pre>;
-  }
-	
-  console.log(data[0]);
+const DailyChart = (props) => {
+  const data = props.data;
   
   const innerHeight = height - margin.top - margin.bottom;
   const innerWidth = width - margin.left - margin.right;
@@ -39,12 +34,13 @@ const App = () => {
   const xScale = scaleTime()
     .domain(extent(data, xValue))
     .range([0, innerWidth])
-  	.nice();
+    .nice();
+
   const yScale = scaleLinear()
     .domain(extent(data, yValue))
     .range([innerHeight, 0])
-  	.nice();
-
+    .nice();
+    
   return (
     <svg width={width} height={height}>
       <g transform={`translate(${margin.left},${margin.top})`}>
@@ -52,13 +48,9 @@ const App = () => {
           xScale={xScale}
           innerHeight={innerHeight}
           tickFormat={xAxisTickFormat}
-          tickOffset={7}
         />
-        <AxisLeft
-          yScale={yScale}
-          innerWidth={innerWidth}
-        />
-				<Marks
+        <AxisLeft yScale={yScale} innerWidth={innerWidth} />
+        <Marks
           data={data}
           xScale={xScale}
           yScale={yScale}
@@ -72,14 +64,15 @@ const App = () => {
           x={innerWidth / 2}
           y={innerHeight + xAxisLabelOffset}
           textAnchor="middle"
-          tickOffset={7}
         >
           {xAxisLabel}
         </text>
         <text
           className="axis-label"
           textAnchor="middle"
-          transform={`translate(${-yAxisLabelOffset},${innerHeight / 2}) rotate(-90)`}
+          transform={`translate(${-yAxisLabelOffset},${
+            innerHeight / 2
+          }) rotate(-90)`}
         >
           {yAxisLabel}
         </text>
@@ -87,6 +80,4 @@ const App = () => {
     </svg>
   );
 };
-
-const rootElement = document.getElementById('root');
-ReactDOM.render(<App />, rootElement);
+export default DailyChart;
