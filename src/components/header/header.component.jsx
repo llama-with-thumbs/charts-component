@@ -11,7 +11,7 @@ const Header = () => (
     </Link>
     <div className="options">
       <Link className="option" to="#">
-        HOME
+        STATISTICS
       </Link>
     </div>
   </div>

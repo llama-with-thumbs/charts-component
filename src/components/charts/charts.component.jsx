@@ -1,5 +1,6 @@
 import React from 'react';
 import DailyChart from '../daily-chart/daily-chart.component';
+import CumulativeChart from '../cumulative-chart/cumulative-chart.component';
 
 import { json } from 'd3';
 
@@ -24,7 +25,8 @@ const Charts = () => {
   return (
     <div>
       {loading && <div>loading</div>}
-      {!loading && <DailyChart data={data} />}
+      {!loading && <CumulativeChart data={data} />}
+      {/* {!loading && <DailyChart data={data} />} */}
     </div>
   );
 };
