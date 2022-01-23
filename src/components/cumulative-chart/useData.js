@@ -9,7 +9,7 @@ const useData = () => {
 
   useEffect(() => {
     const row = (d) => {
-      d.Date = d.Date.toLocaleDateString('en-US');
+      d.Date = d.Date.toLocaleDateString('en-US')
       return d;
     };
     json(jsonUrl, row).then((data) => {

@@ -1,3 +1,13 @@
 .charts {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    // height: 600px;
+    width: 450px;
+    
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
 }

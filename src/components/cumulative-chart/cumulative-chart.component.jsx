@@ -5,20 +5,23 @@ import { LineChart, Line, XAxis, Tooltip, CartesianGrid } from 'recharts';
 import './cumulative-chart.styles.scss';
 
 const CumulativeChart = () => {
-    const data = useData();
+  const data = useData();
   return (
-    <LineChart
-      width={400}
-      height={400}
-      data={data}
-      margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-    >
-      <XAxis dataKey="name" />
-      <Tooltip />
-      <CartesianGrid stroke="#f5f5f5" />
-      <Line type="monotone" dataKey="Date" stroke="#ff7300" yAxisId={0} />
-      <Line type="monotone" dataKey="Cases" stroke="#387908" yAxisId={1} />
-    </LineChart>
+    <div className="cumulative-char">
+      <h4>Cumulative sum of cases</h4>
+      <LineChart
+        width={350}
+        height={350}
+        data={data}
+        margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+      >
+        <XAxis dataKey="Name" />
+        <Tooltip />
+        <CartesianGrid stroke="#f5f5f5" />
+        <Line type="monotone" dataKey="Date" stroke="#ff7300" yAxisId={0} />
+        <Line type="monotone" dataKey="Cases" stroke="#387908" yAxisId={1} />
+      </LineChart>
+    </div>
   );
 };
 

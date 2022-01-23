@@ -1,46 +1,26 @@
-import { useEffect, useRef, useState } from 'react';
-import { csv, scaleLinear, scaleTime, timeFormat, extent } from 'd3';
-import { select } from 'd3';
-
-import useInterval from './useInterval';
+import React from 'react';
 import useData from './useData';
-
-import { AxisBottom } from './AxisBottom';
-import { AxisLeft } from './AxisLeft';
-import { Marks } from './Marks';
+import { LineChart, Line, XAxis, Tooltip, CartesianGrid } from 'recharts';
 
 import './daily-chart.styles.scss';
 
-
-const generateDataset = () =>
-  Array(10)
-    .fill(0)
-    .map(() => [Math.random() * 80 + 10, Math.random() * 35 + 10]);
-
 const DailyChart = () => {
-    const data = useData();
-    console.log(data);
-  const [dataset, setDataset] = useState(generateDataset());
-  const ref = useRef();
-  useEffect(() => {
-    const svgElement = select(ref.current);
-    svgElement
-      .selectAll('circle')
-      .data(dataset)
-      .join('circle')
-      .attr('cx', (d) => d[0])
-      .attr('cy', (d) => d[1])
-      .attr('r', 3);
-  }, [dataset]);
-
-  useInterval(() => {
-    const newDataset = generateDataset();
-    setDataset(newDataset);
-  }, 5000);
-
+  const data = useData();
   return (
-    <div className="daily-chart">
-      <svg viewBox="0 0 100 50" ref={ref} />;
+    <div className="cumulative-char">
+      <h4>Daily count of cases</h4>
+      <LineChart
+        width={350}
+        height={350}
+        data={data}
+        margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+      >
+        <XAxis dataKey="Name" />
+        <Tooltip />
+        <CartesianGrid stroke="#f5f5f5" />
+        <Line type="monotone" dataKey="Date" stroke="#ff7300" yAxisId={0} />
+        <Line type="monotone" dataKey="Cases" stroke="#387908" yAxisId={1} />
+      </LineChart>
     </div>
   );
 };
